@@ -297,7 +297,6 @@ app.get('/idletime/:id', (req, res) => {
     })
 });
 
-
 // //Get all employees
 // app.get('/employees', (req, res) => {
 //     mysqlConnection.query('SELECT * FROM Employee', (err, rows, fields) => {
