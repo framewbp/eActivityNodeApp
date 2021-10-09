@@ -286,6 +286,17 @@ app.post('/trucktracking', (req, res) => {
     })
 });
 
+////////////////////// The Idle Time //////////////////////
+app.get('/idletime/:id', (req, res) => {
+    mysqlConnection.query('SELECT * FROM eact_uat_db.activitysubmaster_tbl\
+    where activitymaincode = ?', [req.params.id], (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
 
 // //Get all employees
 // app.get('/employees', (req, res) => {
