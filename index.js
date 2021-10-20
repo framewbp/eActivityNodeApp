@@ -226,7 +226,7 @@ app.post('/activitytrans', (req, res) => {
 ////////////////////// Insert Activity Transport Detail //////////////////////
 app.post('/activitytransdetail', (req, res) => {
     let activity = req.body;
-    var sql = "SET @activityid = ?;SET @empcode = ?;SET @actvitymaincode = ?; SET @activitysubcode = ?;SET @activitydate = ?;SET @activitystarttime = ?;SET @activityfinishtime = ?;SET @plateno = ?;SET @trailerno = ?;SET @activityduration = ?;SET @platotransportno = ?;SET @routecode = ?;SET @msgoptional = ?;SET @IsSuccess = ?; \
+    var sql = "SET @activityid = ?; SET @empcode = ?; SET @actvitymaincode = ?; SET @activitysubcode = ?; SET @activitydate = ?; SET @activitystarttime = ?; SET @activityfinishtime = ?; SET @plateno = ?; SET @trailerno = ?; SET @activityduration = ?; SET @platotransportno = ?; SET @routecode = ?; SET @msgoptional = ?; SET @IsSuccess = ?; \
     CALL insert_activity_trans_detail(@activityid, @empcode, @actvitymaincode, @activitysubcode, @activitydate, @activitystarttime, @activityfinishtime, @plateno, @trailerno, @activityduration, @platotransportno, @routecode, @msgoptional, @IsSuccess); \
     SELECT @IsSuccess";
     mysqlConnection.query(sql, [activity.activityid, activity.empcode, activity.actvitymaincode, activity.activitysubcode, activity.activitydate, activity.activitystarttime, activity.activityfinishtime, activity.plateno, activity.trailerno, activity.activityduration, activity.platotransportno, activity.routecode, activity.msgoptional], (err, rows, fields) => {
