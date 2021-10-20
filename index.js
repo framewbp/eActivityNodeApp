@@ -225,10 +225,10 @@ app.post('/activitytrans', (req, res) => {
 ////////////////////// Insert Activity Transport Detail //////////////////////
 app.post('/activitytransdetail', (req, res) => {
     let activity = req.body;
-    var sql = "SET @Activityid = ?;SET @Empcode = ?;SET @Actvitymaincode = ?; SET @Activitysubcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityfinishtime = ?;SET @Plateno = ?;SET @Activityduration = ?;SET @Platotransportno = ?;SET @Routecode = ?;SET @IsSuccess = ?; \
-    CALL insert_activity_trans_detail(@Activityid, @Empcode, @Actvitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Plateno, @Activityduration, @Platotransportno, @Routecode, @IsSuccess); \
+    var sql = "SET @activityid = ?;SET @empcode = ?;SET @actvitymaincode = ?; SET @activitysubcode = ?;SET @activitydate = ?;SET @activitystarttime = ?;SET @activityfinishtime = ?;SET @plateno = ?;SET @trailerno = ?;SET @activityduration = ?;SET @platotransportno = ?;SET @routecode = ?;SET @optional = ?;SET @IsSuccess = ?; \
+    CALL insert_activity_trans_detail(@activityid, @empcode, @actvitymaincode, @activitysubcode, @activitydate, @activitystarttime, @activityfinishtime, @plateno, @trailerno, @activityduration, @platotransportno, @routecode, @optional, @IsSuccess); \
     SELECT @IsSuccess";
-    mysqlConnection.query(sql, [activity.activityid, activity.empcode, activity.actvitymaincode, activity.activitysubcode, activity.activitydate, activity.activitystarttime, activity.activityfinishtime, activity.plateno, activity.activityduration, activity.platotransportno, activity.routecode], (err, rows, fields) => {
+    mysqlConnection.query(sql, [activity.activityid, activity.empcode, activity.actvitymaincode, activity.activitysubcode, activity.activitydate, activity.activitystarttime, activity.activityfinishtime, activity.plateno, activity.activityduration, activity.platotransportno, activity.routecode, activity.optional], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
