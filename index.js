@@ -225,11 +225,13 @@ app.post('/activitytrans', (req, res) => {
 
 ////////////////////// Insert Activity Transport Detail //////////////////////
 app.post('/activitytransdetail', (req, res) => {
-    let activity = req.body;
-    var sql = "SET @activityid = ?; SET @empcode = ?; SET @actvitymaincode = ?; SET @activitysubcode = ?; SET @activitydate = ?; SET @activitystarttime = ?; SET @activityfinishtime = ?; SET @plateno = ?; SET @trailerno = ?; SET @activityduration = ?; SET @platotransportno = ?; SET @routecode = ?; SET @msgoptional = ?; SET @IsSuccess = ?; \
-    CALL insert_activity_trans_detail(@activityid, @empcode, @actvitymaincode, @activitysubcode, @activitydate, @activitystarttime, @activityfinishtime, @plateno, @trailerno, @activityduration, @platotransportno, @routecode, @msgoptional, @IsSuccess); \
+    let activitydetail = req.body;
+    var sql = "SET @Activityid = ?; SET @Empcode = ?; SET @Actvitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Plateno = ?; SET @Trailerno = ?; SET @Activityduration = ?; SET @Platotransportno = ?; SET @Routecode = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
+    CALL insert_activity_trans_detail(@Activityid, @Empcode, @Actvitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Plateno, @Trailerno, @Activityduration, @Platotransportno, @Routecode, @Msgoptional, @IsSuccess); \
     SELECT @IsSuccess";
-    mysqlConnection.query(sql, [activity.activityid, activity.empcode, activity.actvitymaincode, activity.activitysubcode, activity.activitydate, activity.activitystarttime, activity.activityfinishtime, activity.plateno, activity.trailerno, activity.activityduration, activity.platotransportno, activity.routecode, activity.msgoptional], (err, rows, fields) => {
+    mysqlConnection.query(sql, [activitydetail.activityid, activitydetail.empcode, activitydetail.actvitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
+        , activitydetail.activitystarttime, activitydetail.activityfinishtime, activitydetail.plateno, activitydetail.trailerno, activitydetail.activityduration, activitydetail.platotransportno
+        , activitydetail.routecode, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
