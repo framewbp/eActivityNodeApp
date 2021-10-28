@@ -303,10 +303,10 @@ app.get('/idletime/:id', (req, res) => {
 ////////////////////// Get Activity Sub Code //////////////////////
 app.post('/getsubactivitycode', (req, res) => {
     let subactivity = req.body;
-    var sql = "SET @ActivityMainCode = ?;SET @ActivitySubDescription = ?;SET @Result = ?; \
-    CALL get_sub_activity_code(@ActivityMainCode ,@ActivitySubDescription ,@Result); \
+    var sql = "SET @ActivityMainCode = ?;SET @ActivitySubDescription = ?;SET @Language = ?;SET @Result = ?; \
+    CALL get_sub_activity_code(@ActivityMainCode ,@ActivitySubDescription ,@Language ,@Result); \
     SELECT @Result";
-    mysqlConnection.query(sql, [subactivity.activitymaincode, subactivity.actsubdescription, subactivity.result], (err, rows, fields) => {
+    mysqlConnection.query(sql, [subactivity.activitymaincode, subactivity.actsubdescription, subactivity.language, subactivity.result], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
