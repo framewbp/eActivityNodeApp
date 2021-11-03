@@ -318,3 +318,14 @@ app.post('/getsubactivitycode', (req, res) => {
             console.log(err);
     })
 });
+
+////////////////////// Get Current Version //////////////////////
+app.get('/currentversion', (req, res) => {
+    mysqlConnection.query("SELECT version.version_id FROM eact_uat_db.application_current_version as version\
+    where status = 'active'", [req.params.id], (err, rows, fields) => {
+        if (!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
