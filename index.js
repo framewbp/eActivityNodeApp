@@ -164,10 +164,10 @@ app.post('/checklisttrans', (req, res) => {
 ////////////////////// Insert Checklist Transport Detail //////////////////////
 app.post('/checklisttransdetail', (req, res) => {
     let checklistdetail = req.body;
-    var sql = "SET @Checklistdocno = ?;SET @Checklistno = ?;SET @Checklistitemcode = ?;SET @Checklistresultbefore = ?;SET @Checklistngphotopathbefore = ?;SET @Checklistresultafter = ?;SET @Checklistngphotopathafter = ?;SET @IsSuccess = ?; \
-    CALL insert_checklist_trans_detail(@Checklistdocno, @Checklistno, @Checklistitemcode, @Checklistresultbefore, @Checklistngphotopathbefore, @Checklistresultafter, @Checklistngphotopathafter, @IsSuccess); \
+    var sql = "SET @Checklistdocno = ?;SET @Checklistno = ?;SET @Checklistitemcode = ?;SET @Checklistresultbefore = ?;SET @Riskphotopathbefore = ?;SET @Riskmessage = ?;SET @Checklistresultafter = ?;SET @Riskphotopathafter = ?;SET @IsSuccess = ?; \
+    CALL insert_checklist_trans_detail(@Checklistdocno, @Checklistno, @Checklistitemcode, @Checklistresultbefore, @Riskphotopathbefore, @Riskmessage, @Checklistresultafter, @Riskphotopathafter, @IsSuccess); \
     SELECT @IsSuccess";
-    mysqlConnection.query(sql, [checklistdetail.checklistdocno, checklistdetail.checklistno, checklistdetail.checklistitemcode, checklistdetail.checklistresultbefore, checklistdetail.checklistngphotopathbefore, checklistdetail.checklistresultafter, checklistdetail.checklistngphotopathafter, checklistdetail.issuccess], (err, rows, fields) => {
+    mysqlConnection.query(sql, [checklistdetail.checklistdocno, checklistdetail.checklistno, checklistdetail.checklistitemcode, checklistdetail.checklistresultbefore, checklistdetail.riskphotopathbefore, checklistdetail.riskmessage, checklistdetail.checklistresultafter, checklistdetail.riskphotopathafter, checklistdetail.issuccess], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
