@@ -329,3 +329,23 @@ app.get('/currentversion', (req, res) => {
             console.log(err);
     })
 });
+
+////////////////////// Get Current Activity No //////////////////////
+app.post('/currentactivityno', (req, res) => {
+    let activityno = req.body;
+    var sql = "SET @Empcode = ?;SET @Currentdate = ?;SET @Currenttime = ?;SET @Shiftcode = ?;SET @Result = ?; \
+    CALL get_activity_no(@Empcode ,@Currentdate ,@Currenttime ,@Shiftcode ,@Result); \
+    SELECT @Result";
+    mysqlConnection.query(sql, [activityno.empcode, activityno.currentdate, activityno.currenttime, activityno.shiftcode, activityno.result], (err, rows, fields) => {
+        if (!err)
+            rows.forEach(element => {
+                if (element.constructor == Array) {
+                    let dict = element[0];
+                    res.send(dict["@Result"]);
+                }
+            });
+        else
+            console.log(err);
+    })
+});
+
