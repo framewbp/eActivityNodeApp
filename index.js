@@ -232,16 +232,16 @@ app.post('/activitytransdetail', (req, res) => {
     mysqlConnection.query(sql, [activitydetail.activityid, activitydetail.empcode, activitydetail.actvitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
         , activitydetail.activitystarttime, activitydetail.activityfinishtime, activitydetail.plateno, activitydetail.trailerno, activitydetail.activityduration, activitydetail.platotransportno
         , activitydetail.routecode, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
-        if (!err)
-            rows.forEach(element => {
-                if (element.constructor == Array) {
-                    let dict = element[0];
-                    res.send(dict["@IsSuccess"]);
-                }
-            });
-        else
-            console.log(err);
-    })
+            if (!err)
+                rows.forEach(element => {
+                    if (element.constructor == Array) {
+                        let dict = element[0];
+                        res.send(dict["@IsSuccess"]);
+                    }
+                });
+            else
+                console.log(err);
+        })
 });
 
 ////////////////////// Get Towhead Master //////////////////////
@@ -359,11 +359,11 @@ app.post('/tripallowance', (req, res) => {
     and activitystarttime between @Activitystarttime and @Activityendtime"
     mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
         if (!err)
-        rows.forEach(element => {
-            if (element.constructor == Array) {
-                res.send(element);
-            }
-        });
+            rows.forEach(element => {
+                if (element.constructor == Array) {
+                    res.send(element);
+                }
+            });
         else
             console.log(err);
     })
