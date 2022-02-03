@@ -373,7 +373,7 @@ app.post('/currentactivityno', (req, res) => {
 app.post('/tripallowance', (req, res) => {
     let tripallowance = req.body;
     var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;SET @Currenttime = ?;\
-    CALL get_trip_allowance(@Empcode, @Activitydate, @Activitystarttime, Activityendtime, @Currenttime)";
+    CALL get_trip_allowance(@Empcode, @Activitydate, @Activitystarttime, Activityendtime, @Currenttime);";
     mysqlConnection.query(sql, [tripallowance.empcode, tripallowance.activitydate, tripallowance.activitystarttime, tripallowance.activityendtime, tripallowance.currenttime], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
