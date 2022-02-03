@@ -358,7 +358,7 @@ app.post('/tripallowance', (req, res) => {
     WHERE empcode = @Empcode\
     and activitydate = @Activitydate\
     and activitystarttime between @Activitystarttime and @Activityendtime"
-    mysqlConnection.query(sql, [activityno.empc7ode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
+    mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
