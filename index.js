@@ -351,14 +351,30 @@ app.post('/currentactivityno', (req, res) => {
 });
 
 ////////////////////// Get Personal Trip Allowance  //////////////////////
+// app.post('/tripallowance', (req, res) => {
+//     let activityno = req.body;
+//     var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;\
+//     SELECT * FROM eact_uat_db.v_tripallwancebasis\
+//     WHERE empcode = @Empcode\
+//     and activitydate = @Activitydate\
+//     and activitystarttime between @Activitystarttime and @Activityendtime"
+//     mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
+//         if (!err)
+//             rows.forEach(element => {
+//                 if (element.constructor == Array) {
+//                     res.send(element);
+//                 }
+//             });
+//         else
+//             console.log(err);
+//     })
+// });
+
 app.post('/tripallowance', (req, res) => {
-    let activityno = req.body;
-    var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;\
-    SELECT * FROM eact_uat_db.v_tripallwancebasis\
-    WHERE empcode = @Empcode\
-    and activitydate = @Activitydate\
-    and activitystarttime between @Activitystarttime and @Activityendtime"
-    mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
+    let tripallowance = req.body;
+    var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;SET @Currentdate = ?;\
+    CALL get_trip_allowance(@Empcode, @Activitydate, @Activitystarttime, Activityendtime, @Currentdate)"
+    mysqlConnection.query(sql, [tripallowance.empcode, tripallowance.activitydate, tripallowance.activitystarttime, tripallowance.activityendtime, tripallowance.currentdate], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
