@@ -354,7 +354,7 @@ app.post('/currentactivityno', (req, res) => {
 app.post('/tripallowance', (req, res) => {
     let activityno = req.body;
     var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;\
-    SELECT * FROM eact_uat_db.v_tripallwancebasis\
+    SELECT @globalVar:=@globalVar+1 RowCount, eact_uat_db.v_tripallwancebasis. * FROM(select @globalVar:=0) initializeGlobalVariable, eact_uat_db.v_tripallwancebasis\
     WHERE empcode = @Empcode\
     and activitydate = @Activitydate\
     and activitystarttime between @Activitystarttime and @Activityendtime"
