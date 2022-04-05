@@ -387,7 +387,7 @@ app.post('/tripallowance_night', (req, res) => {
     and activitydate = @Activitydate2\
     and activitystarttime between '00:00:00' and '07:00:00'"
 
-    mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
+    mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate1, activityno.activitydate2], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
                 if (element.constructor == Array) {
