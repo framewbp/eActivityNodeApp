@@ -414,3 +414,15 @@ app.post('/tripallowance_night', (req, res) => {
 //             console.log(err);
 //     })
 // });
+
+////////////////////// Get Origin And Destination //////////////////////
+app.get('/getorigindestination/:id', (req, res) => {
+        mysqlConnection.query('SELECT * FROM eact_uat_db.origin_destination_tbl\
+        where activitysubcode = ?\
+        order by routeindex asc', [req.params.id], (err, rows, fields) => {
+            if (!err)
+                res.send(rows);
+            else
+                console.log(err);
+        })
+    });
