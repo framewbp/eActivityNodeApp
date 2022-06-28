@@ -224,14 +224,33 @@ app.post('/activitytrans', (req, res) => {
 });
 
 ////////////////////// Insert Activity Transport Detail //////////////////////
+// app.post('/activitytransdetail', (req, res) => {
+//     let activitydetail = req.body;
+//     var sql = "SET @Activityid = ?; SET @Empcode = ?; SET @Activitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Plateno = ?; SET @Trailerno = ?; SET @Activityduration = ?; SET @Platotransportno = ?; SET @Routecode = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
+//     CALL insert_activity_trans_detail(@Activityid, @Empcode, @Activitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Plateno, @Trailerno, @Activityduration, @Platotransportno, @Routecode, @Msgoptional, @IsSuccess); \
+//     SELECT @IsSuccess";
+//     mysqlConnection.query(sql, [activitydetail.activityid, activitydetail.empcode, activitydetail.activitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
+//         , activitydetail.activitystarttime, activitydetail.activityfinishtime, activitydetail.plateno, activitydetail.trailerno, activitydetail.activityduration, activitydetail.platotransportno
+//         , activitydetail.routecode, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
+//             if (!err)
+//                 rows.forEach(element => {
+//                     if (element.constructor == Array) {
+//                         let dict = element[0];
+//                         res.send(dict["@IsSuccess"]);
+//                     }
+//                 });
+//             else
+//                 console.log(err);
+//         })
+// });
 app.post('/activitytransdetail', (req, res) => {
     let activitydetail = req.body;
-    var sql = "SET @Activityid = ?; SET @Empcode = ?; SET @Activitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Plateno = ?; SET @Trailerno = ?; SET @Activityduration = ?; SET @Platotransportno = ?; SET @Routecode = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
-    CALL insert_activity_trans_detail(@Activityid, @Empcode, @Activitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Plateno, @Trailerno, @Activityduration, @Platotransportno, @Routecode, @Msgoptional, @IsSuccess); \
+    var sql = "SET @Activityid = ?; SET @Empcode = ?; SET @Activitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Plateno = ?;  @Trailerno = ?; SET @Activityduration = ?; SET @Platotransportno = ?; SET @Origin = ?; SET @Destination = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
+    CALL insert_activity_trans_detail(@Activityid, @Empcode, @Activitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Plateno, @Trailerno, @Activityduration, @Platotransportno, @Origin , @Destination, @Msgoptional, @IsSuccess); \
     SELECT @IsSuccess";
     mysqlConnection.query(sql, [activitydetail.activityid, activitydetail.empcode, activitydetail.activitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
         , activitydetail.activitystarttime, activitydetail.activityfinishtime, activitydetail.plateno, activitydetail.trailerno, activitydetail.activityduration, activitydetail.platotransportno
-        , activitydetail.routecode, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
+        , activitydetail.origin, activitydetail.destination, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
             if (!err)
                 rows.forEach(element => {
                     if (element.constructor == Array) {
@@ -290,10 +309,11 @@ app.post('/trucktracking', (req, res) => {
 });
 
 ////////////////////// The Idle Time //////////////////////
-app.get('/idletime/:id', (req, res) => {
-    mysqlConnection.query('SELECT * FROM eact_uat_db.activitysubmaster_tbl\
-    where activitymaincode = ?\
-    order by length(activitysubcode)', [req.params.id], (err, rows, fields) => {
+app.get('/idletime', (req, res) => {
+    mysqlConnection.query("SELECT * FROM eact_uat_db.activitysubmaster_tbl\
+    where activitymaincode = '0' and\
+    actactive = '1'\
+    order by length(activitysubcode)", [req.params.id], (err, rows, fields) => {
         if (!err)
             res.send(rows);
         else
