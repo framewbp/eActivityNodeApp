@@ -245,10 +245,10 @@ app.post('/activitytrans', (req, res) => {
 // });
 app.post('/activitytransdetail', (req, res) => {
     let activitydetail = req.body;
-    var sql = "SET @Activityindex = ?; SET @Activityid = ?; SET @Empcode = ?; SET @Activitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Activityduration = ?; SET @Towheadplateno = ?; SET @Towheadno = ?; SET @Trailerplateno = ?; SET @Trailerno = ?; SET @Platotransportno = ?; SET @Origin = ?; SET @Destination = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
-    CALL insert_activity_trans_detail(@Activityindex, @Activityid, @Empcode, @Activitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Activityduration, @Towheadplateno, @Towheadno, @Trailerplateno, @Trailerno, @Platotransportno, @Origin , @Destination, @Msgoptional, @IsSuccess); \
+    var sql = "SET @Activityid = ?; SET @Empcode = ?; SET @Activitymaincode = ?; SET @Activitysubcode = ?; SET @Activitydate = ?; SET @Activitystarttime = ?; SET @Activityfinishtime = ?; SET @Activityduration = ?; SET @Towheadplateno = ?; SET @Towheadno = ?; SET @Trailerplateno = ?; SET @Trailerno = ?; SET @Platotransportno = ?; SET @Origin = ?; SET @Destination = ?; SET @Msgoptional = ?; SET @IsSuccess = ?; \
+    CALL insert_activity_trans_detail(@Activityid, @Empcode, @Activitymaincode, @Activitysubcode, @Activitydate, @Activitystarttime, @Activityfinishtime, @Activityduration, @Towheadplateno, @Towheadno, @Trailerplateno, @Trailerno, @Platotransportno, @Origin , @Destination, @Msgoptional, @IsSuccess); \
     SELECT @IsSuccess";
-    mysqlConnection.query(sql, [activitydetail.activityindex, activitydetail.activityid, activitydetail.empcode, activitydetail.activitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
+    mysqlConnection.query(sql, [activitydetail.activityid, activitydetail.empcode, activitydetail.activitymaincode, activitydetail.activitysubcode, activitydetail.activitydate
         , activitydetail.activitystarttime, activitydetail.activityfinishtime, activitydetail.activityduration, activitydetail.towheadplateno, activitydetail.towheadno, activitydetail.trailerplateno, activitydetail.trailerno, activitydetail.platotransportno
         , activitydetail.origin, activitydetail.destination, activitydetail.msgoptional, activitydetail.issuccess], (err, rows, fields) => {
             if (!err)
