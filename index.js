@@ -376,7 +376,7 @@ app.post('/tripallowance_day', (req, res) => {
     var sql = "SET @Empcode = ?;SET @Activitydate = ?;SET @Activitystarttime = ?;SET @Activityendtime = ?;\
     SELECT @globalVar:=@globalVar+1 rowCount, eact_uat_db.v_tripallwancebasis. * FROM(select @globalVar:=0) initializeGlobalVariable, eact_uat_db.v_tripallwancebasis\
     WHERE empcode = @Empcode\
-    and activitysubcode in (1,6,7,12,13,14,19,24,29,34,35,36)\
+    and activitysubcode in (1,2,3,4,5,6,7,8,9,10,11)\
     and activitydate = @Activitydate\
     and activitystarttime between @Activitystarttime and @Activityendtime"
     mysqlConnection.query(sql, [activityno.empcode, activityno.activitydate, activityno.activitystarttime, activityno.activityendtime], (err, rows, fields) => {
@@ -397,13 +397,13 @@ app.post('/tripallowance_night', (req, res) => {
     var sql = "SET @Empcode = ?;SET @Activitydate1 = ?;SET @Activitydate2 = ?;\
     SELECT @globalVar:=@globalVar+1 rowCount, eact_uat_db.v_tripallwancebasis. * FROM(select @globalVar:=0) initializeGlobalVariable, eact_uat_db.v_tripallwancebasis\
     WHERE empcode = @Empcode\
-    and activitysubcode in (1,6,7,12,13,14,19,24,29,34,35,36)\
+    and activitysubcode in (1,2,3,4,5,6,7,8,9,10,11)\
     and activitydate = @Activitydate1\
     and activitystarttime between '17:00:00' and '24:00:00'\
     union\
     SELECT @globalVar:=@globalVar+1 rowCount, eact_uat_db.v_tripallwancebasis. * FROM(select @globalVar:=0) initializeGlobalVariable, eact_uat_db.v_tripallwancebasis\
     WHERE empcode = @Empcode\
-    and activitysubcode in (1,6,7,12,13,14,19,24,29,34,35,36)\
+    and activitysubcode in (1,2,3,4,5,6,7,8,9,10,11)\
     and activitydate = @Activitydate2\
     and activitystarttime between '00:00:00' and '07:00:00'"
 
