@@ -33,7 +33,7 @@ mysqlConnection.connect((err) => {
 var port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Express server is runnig at port no : ', port));
 
-////////////////////// Validate User //////////////////////
+////////////////////// Valid ate User //////////////////////
 app.post('/login', (req, res) => {
     let emp = req.body;
     var sql = "SET @EmpCode = ?;SET @PasswordHash = ?;SET @IsSuccess = ?; \
@@ -64,7 +64,9 @@ app.get('/employees', (req, res) => {
 
 ////////////////////// Get by employees //////////////////////
 app.get('/employees/:id', (req, res) => {
-    mysqlConnection.query('SELECT * FROM employee_tbl WHERE empcode = ?', [req.params.id], (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM eact_uat_db.employee_tbl as e1 \
+    left join eact_uat_db.employee_jobtitle_tbl as j1 \
+    on e1.job_code = j1.job_code WHERE empcode = ?', [req.params.id], (err, rows, fields) => {
         if (!err)
             res.send(rows);
         else
